@@ -34,7 +34,13 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 NotificationManager().multipleNotificationShow();
               },
-              title: "Multiple Notification")
+              title: "Multiple Notification"),
+              const SizedBox(height: 20),
+          CustomButton(
+              onPressed: () {
+                  NotificationManager().scheduleNotification();
+              },
+              title: "Schedule Notification")
         ],
       ),
     );
