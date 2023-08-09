@@ -1,21 +1,20 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+
 class NotificationManager {
-  
   //Create an instance of FlutterLocalNotificationsPlugin:
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
- 
- //Define a function called initNotification for initializing local notifications:
+  
+  //Define a function called initNotification for initializing local notifications:
   Future<void> initNotification() async {
-
 //This sets up the initialization settings for Android. The parameter 'flutter_logo' refers to
-//the name of a drawable resource in the Android app's resources. 
+//the name of a drawable resource in the Android app's resources.
 //It is used as the default icon for notifications.
     AndroidInitializationSettings initializationSettingsAndroid =
         const AndroidInitializationSettings('flutter_logo');
-//This sets up the initialization settings for iOS. The parameters requestAlertPermission, requestBadgePermission, and 
-//requestSoundPermission are boolean flags that specify whether the app should request permission 
+//This sets up the initialization settings for iOS. The parameters requestAlertPermission, requestBadgePermission, and
+//requestSoundPermission are boolean flags that specify whether the app should request permission
     DarwinInitializationSettings initializationIos =
         DarwinInitializationSettings(
       requestAlertPermission: true,
@@ -29,13 +28,14 @@ class NotificationManager {
         android: initializationSettingsAndroid, iOS: initializationIos);
     await notificationsPlugin.initialize(
       initializationSettings,
-//The onDidReceiveNotificationResponse callback is also provided, which can be used to handle 
+//The onDidReceiveNotificationResponse callback is also provided, which can be used to handle
 // user interactions with notifications, but it currently doesn't have any implementation.
       onDidReceiveNotificationResponse: (details) {},
     );
   }
+
 //Define a function called simpleNotificationShow:
-//This sets up the Android-specific details for the notification. The AndroidNotificationDetails class allows you 
+//This sets up the Android-specific details for the notification. The AndroidNotificationDetails class allows you
 //to define various properties for the notification, such as the channel ID, channel title, priority, importance, icon, and more. In this case:
 //'Channel_id' is the ID of the notification channel.
 //'Channel_title' is the title of the notification channel.
@@ -47,7 +47,7 @@ class NotificationManager {
   Future<void> simpleNotificationShow() async {
     AndroidNotificationDetails androidNotificationDetails =
         const AndroidNotificationDetails('Channel_id', 'Channel_title',
-        //Priority refers to the level of interruption a notification can cause to the user's current activity. It determines how aggressively the notification should be brought to the user's attention.
+            //Priority refers to the level of interruption a notification can cause to the user's current activity. It determines how aggressively the notification should be brought to the user's attention.
 //Importance determines the overall significance of a notification and its ability to override user settings like "Do Not Disturb" mode.
             priority: Priority.high,
             importance: Importance.max,
@@ -58,7 +58,7 @@ class NotificationManager {
 // it includes only the Android-specific details that were defined earlier.
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
-        //Display the notification:
+    //Display the notification:
     await notificationsPlugin.show(
         0, 'Simple Notification', 'New User send message', notificationDetails);
   }
@@ -113,20 +113,20 @@ class NotificationManager {
     List<String> lines = ['user1', 'user2', 'user3'];
 //In summary, the InboxStyleInformation allows you to create a visually appealing summary for a group of notifications, showing the content of each individual
 // notification in an expanded view while providing a concise summary in the collapsed view.
-    InboxStyleInformation inboxStyleInformation =
-        InboxStyleInformation(lines, contentTitle: '${lines.length} messages',summaryText: 'Code Compilee');
+    InboxStyleInformation inboxStyleInformation = InboxStyleInformation(lines,
+        contentTitle: '${lines.length} messages', summaryText: 'Code Compilee');
 
-   AndroidNotificationDetails androidNotificationSpesific=AndroidNotificationDetails(
-    'groupChennelId',
-    'groupChennelTitle',
-    styleInformation: inboxStyleInformation,
-    groupKey: 'commonMessage',
-    setAsGroupSummary: true
-   );     
-   NotificationDetails platformChannelSpe=NotificationDetails(android: androidNotificationSpesific);
-  await notificationsPlugin.show(3, 'Attention', '${lines.length} messages', platformChannelSpe);
+    AndroidNotificationDetails androidNotificationSpesific =
+        AndroidNotificationDetails('groupChennelId', 'groupChennelTitle',
+            styleInformation: inboxStyleInformation,
+            groupKey: 'commonMessage',
+            setAsGroupSummary: true);
+    NotificationDetails platformChannelSpe =
+        NotificationDetails(android: androidNotificationSpesific);
+    await notificationsPlugin.show(
+        3, 'Attention', '${lines.length} messages', platformChannelSpe);
   }
-  
+
   Future<void> scheduleNotification() async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -134,25 +134,22 @@ class NotificationManager {
       'your_channel_name',
       channelDescription: 'your_channel_description',
     );
-
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
 
     final scheduledTime =
         tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5));
-    await notificationsPlugin.zonedSchedule(
+    await  notificationsPlugin.zonedSchedule(
       0,
       'scheduled title',
       'scheduled body',
       scheduledTime,
       notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
+      androidAllowWhileIdle: false,
+      payload: 'customPayload',
+      matchDateTimeComponents: DateTimeComponents.time,
     );
   }
-   
-
-
-
 }
