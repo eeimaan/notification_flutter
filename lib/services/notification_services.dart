@@ -141,14 +141,14 @@ class NotificationManager {
         tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5));
     await  notificationsPlugin.zonedSchedule(
       0,
-      'scheduled title',
-      'scheduled body',
+      '7:00 am',
+      'its time of reminder',
       scheduledTime,
       notificationDetails,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle: false,
-      payload: 'customPayload',
+     // payload: 'customPayload',
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }

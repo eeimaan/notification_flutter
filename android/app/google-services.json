@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "74329695970",
+    "project_id": "flutterfcm-74909",
+    "storage_bucket": "flutterfcm-74909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74329695970:android:c2ab9234616e24b2e3e0bb",
+        "android_client_info": {
+          "package_name": "com.emaan.notification_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74329695970-rkacl65hrnrciiqihfqtpk435j77k2eg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbBCdRl_Ac0bLLzJ_0Y__f0LJ94Wf2VRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74329695970-rkacl65hrnrciiqihfqtpk435j77k2eg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
