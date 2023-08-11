@@ -1,5 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_flutter/firebase_notification_Screen.dart';
 import 'package:notification_flutter/notification_screen.dart';
 import 'package:notification_flutter/services/notification_services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,8 +15,13 @@ void main()async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
+FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
 }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async {
+  await Firebase.initializeApp();
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
